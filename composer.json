@@ -1,0 +1,24 @@
+{
+    "name": "agsystemspl/allegro-rest-api",
+    "description": "Allegro REST API Helper",
+    "keywords": ["package"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Paweł Feruś",
+            "email": "mindc@o2.pl"
+        }
+    ],
+    "type": "library",
+    "require": {
+		"php": ">=7.1"
+    },
+    "require-dev": {
+		"phpunit/phpunit": "6.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "AGSystems\\Allegro\\": "src/"
+        }
+    }
+}
