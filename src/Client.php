@@ -51,6 +51,7 @@ class Client extends \AGSystems\REST\AbstractClient
         }
 
         return [
+            'http_errors' => false,
             'base_uri' => 'https://api.allegro.pl/',
             'headers' => [
                 'accept' => 'application/vnd.allegro.public.v1+json',
