@@ -1,7 +1,7 @@
 {
-    "name": "agsystemspl/allegro-rest-api",
-    "description": "Allegro REST API Helper",
-    "keywords": ["package"],
+    "name": "agsystemspl/allegro-rest-client",
+    "description": "Allegro REST Client",
+    "keywords": ["allegro", "rest", "api"],
     "license": "MIT",
     "authors": [
         {
@@ -11,14 +11,24 @@
     ],
     "type": "library",
     "require": {
-		"php": ">=7.1"
-    },
-    "require-dev": {
-		"phpunit/phpunit": "6.*"
+		"php": ">=7.0",
+        "agsystemspl/abstract-rest-client": "dev-master",
+        "agsystemspl/oauth2-allegro": "dev-master"
     },
     "autoload": {
         "psr-4": {
-            "AGSystems\\Allegro\\": "src/"
+            "AGSystems\\REST\\Allegro\\": "src/"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/agsystemspl/abstract-rest-client"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/agsystemspl/oauth2-allegro"
+        }
+
+    ]
 }
