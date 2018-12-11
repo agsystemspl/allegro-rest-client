@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "AGSystems\\REST\\Allegro\\": "src/"
+            "AGSystems\\Allegro\\REST\\": "src/"
         }
     },
     "repositories": [

@@ -6,7 +6,7 @@
  * Time: 14:57
  */
 
-namespace AGSystems\REST\Allegro;
+namespace AGSystems\Allegro\REST;
 
 use GuzzleHttp\Psr7\Response;
 use League\OAuth2\Client\Provider\AbstractProvider;
