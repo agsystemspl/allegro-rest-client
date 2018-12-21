@@ -65,6 +65,7 @@ class Client extends \AGSystems\REST\AbstractClient
             $this->query = [];
 
             $this->customOptions([
+                'base_uri' => 'https://upload.allegro.pl',
                 'headers' => [
                     'content-type' => getimagesize($argument)['mime'],
                 ],
