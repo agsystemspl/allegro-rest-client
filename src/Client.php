@@ -76,6 +76,38 @@ class Client extends \AGSystems\REST\AbstractClient
         }
     }
 
+    protected function request($method, $uri, $data = null)
+    {
+        $options = [];
+
+        switch (strtoupper($method)) {
+            case 'POST':
+                if(is_file($data)) {
+                    $options = [
+                        'base_uri' => 'https://upload.allegro.pl',
+                        'headers' => [
+                            'content-type' => getimagesize($argument)['mime'],
+                        ],
+                        'body' => fopen($argument, 'r'),
+                    ];
+                } else {
+                    return parent::request($method, $uri, $data);
+                }
+            default:
+                return parent::request($method, $uri, $data);
+        }
+
+        $options = array_merge_recursive($this->withOptions(), $options, $this->options);
+
+        $callback = function () use ($method, $uri, $options) {
+            $client = new Client($options);
+            return $client->request($method, $uri);
+        };
+
+        return $this->responseHandler($callback);
+    }
+
+
     protected function responseHandler(callable $callback)
     {
         $retries = 0;
