@@ -72,7 +72,7 @@ class Client extends \AGSystems\REST\AbstractClient
                 'body' => fopen($argument, 'r'),
             ]);
 
-            return $this->request($name, $uri, array_shift($arguments));
+            return $this->request('POST', $uri);
         }
     }
 
