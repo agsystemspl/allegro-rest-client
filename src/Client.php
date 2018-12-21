@@ -36,12 +36,12 @@ class Client extends \AGSystems\REST\AbstractClient
 
     protected function withOptions(): array
     {
-        if($this->accessToken->hasExpired()){
+        if ($this->accessToken->hasExpired()){
             $accessToken = $this->provider->getAccessToken('refresh_token', [
                 'refresh_token' => $this->accessToken->getRefreshToken()
             ]);
 
-            $accessToken->saveAuth($accessToken);
+            $this->accessToken->saveAuth($accessToken);
         }
 
         return [
