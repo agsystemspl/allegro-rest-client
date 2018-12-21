@@ -4,7 +4,7 @@ namespace AGSystems\Allegro\REST;
 
 use GuzzleHttp\Psr7\Response;
 use League\OAuth2\Client\Provider\AbstractProvider;
-use League\OAuth2\Client\Token\AccessTokenInterface;
+use AGSystems\OAuth2\Client\Account\Token\AccessTokenInterface;
 
 class Client extends \AGSystems\REST\AbstractClient
 {
