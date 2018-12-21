@@ -65,9 +65,9 @@ class Client extends \AGSystems\REST\AbstractClient
                     $options = [
                         'base_uri' => 'https://upload.allegro.pl',
                         'headers' => [
-                            'content-type' => getimagesize($argument)['mime'],
+                            'content-type' => getimagesize($data)['mime'],
                         ],
-                        'body' => fopen($argument, 'r'),
+                        'body' => fopen($data, 'r'),
                     ];
                 } else {
                     return parent::request($method, $uri, $data);
