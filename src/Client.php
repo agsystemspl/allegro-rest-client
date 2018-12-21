@@ -3,7 +3,7 @@
 namespace AGSystems\Allegro\REST;
 
 use AGSystems\OAuth2\Client\Provider\Allegro;
-use AGSystems\OAuth2\Client\Account\Token\AccessTokenInterface;
+use AGSystems\Allegro\REST\Account\Token\AccessTokenInterface;
 use GuzzleHttp\Psr7\Response;
 
 class Client extends \AGSystems\REST\AbstractClient
