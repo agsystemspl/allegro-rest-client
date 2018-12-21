@@ -12,6 +12,7 @@
     "type": "library",
     "require": {
 		"php": ">=7.0",
+        "league/oauth2-client": "^2.4",
         "agsystemspl/abstract-rest-client": "dev-master",
         "agsystemspl/oauth2-allegro": "dev-master"
     },

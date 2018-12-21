@@ -1,16 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: panther
- * Date: 27.11.2018
- * Time: 14:57
- */
 
 namespace AGSystems\Allegro\REST;
 
 use GuzzleHttp\Psr7\Response;
 use League\OAuth2\Client\Provider\AbstractProvider;
-use AGSystems\OAuth2\Client\Token\AccessTokenInterface;
+use League\OAuth2\Client\Token\AccessTokenInterface;
 
 class Client extends \AGSystems\REST\AbstractClient
 {
