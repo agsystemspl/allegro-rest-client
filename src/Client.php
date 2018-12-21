@@ -55,6 +55,26 @@ class Client extends \AGSystems\REST\AbstractClient
         ];
     }
 
+    public function post($argument)
+    {
+        if (is_array($argument))
+            return parent::post($argument);
+
+        if (is_file($argument)) {
+            $uri = implode('/', array_filter($this->query));
+            $this->query = [];
+
+            $this->customOptions([
+                'headers' => [
+                    'content-type' => getimagesize($argument)['mime'],
+                ],
+                'body' => fopen($argument, 'r'),
+            ]);
+
+            return $this->request($name, $uri, array_shift($arguments));
+        }
+    }
+
     protected function responseHandler(callable $callback)
     {
         $retries = 0;
