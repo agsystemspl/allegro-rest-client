@@ -2,9 +2,9 @@
 
 namespace AGSystems\Allegro\REST;
 
-use GuzzleHttp\Psr7\Response;
-use League\OAuth2\Client\Provider\AbstractProvider;
+use AGSystems\OAuth2\Client\Provider\Allegro;
 use AGSystems\OAuth2\Client\Account\Token\AccessTokenInterface;
+use GuzzleHttp\Psr7\Response;
 
 class Client extends \AGSystems\REST\AbstractClient
 {
@@ -16,13 +16,13 @@ class Client extends \AGSystems\REST\AbstractClient
     protected $accessToken;
 
     /**
-     * @var AbstractProvider
+     * @var Allegro
      */
     protected $provider;
 
     public function __construct(
         AccessTokenInterface $accessToken,
-        AbstractProvider $provider
+        Allegro $provider
     )
     {
         $this->accessToken = $accessToken;
