@@ -55,27 +55,6 @@ class Client extends \AGSystems\REST\AbstractClient
         ];
     }
 
-    public function post($argument)
-    {
-        if (is_array($argument))
-            return parent::post($argument);
-
-        if (is_file($argument)) {
-            $uri = implode('/', array_filter($this->query));
-            $this->query = [];
-
-            $this->customOptions([
-                'base_uri' => 'https://upload.allegro.pl',
-                'headers' => [
-                    'content-type' => getimagesize($argument)['mime'],
-                ],
-                'body' => fopen($argument, 'r'),
-            ]);
-
-            return $this->request('POST', $uri);
-        }
-    }
-
     protected function request($method, $uri, $data = null)
     {
         $options = [];
