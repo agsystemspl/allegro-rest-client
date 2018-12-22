@@ -55,9 +55,9 @@ class Client extends \AGSystems\REST\AbstractClient
         ];
     }
 
-    protected function handlePost($data = null)
+    protected function handlePost($data = [])
     {
-        if (is_file($data)) {
+        if (!is_array($data) && is_file($data)) {
             return [
                 'base_uri' => 'https://upload.allegro.pl',
                 'headers' => [
