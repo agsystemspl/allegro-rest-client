@@ -29,14 +29,14 @@ class Client extends \AGSystems\REST\AbstractClient
         $this->provider = $provider;
     }
 
-    protected function pathHandler($path)
+    protected function handlePath($path)
     {
         return str_replace('_', '-', $path);
     }
 
-    protected function withOptions(): array
+    protected function clientOptions()
     {
-        if ($this->accessToken->hasExpired()){
+        if ($this->accessToken->hasExpired()) {
             $accessToken = $this->provider->getAccessToken('refresh_token', [
                 'refresh_token' => $this->accessToken->getRefreshToken()
             ]);
@@ -46,7 +46,7 @@ class Client extends \AGSystems\REST\AbstractClient
 
         return [
             'http_errors' => false,
-            'base_uri' => 'https://api.allegro.pl/',
+            'base_uri' => 'https://api.allegro.pl',
             'headers' => [
                 'accept' => 'application/vnd.allegro.public.v1+json',
                 'content-type' => 'application/vnd.allegro.public.v1+json',
@@ -55,39 +55,22 @@ class Client extends \AGSystems\REST\AbstractClient
         ];
     }
 
-    protected function request($method, $uri, $data = null)
+    protected function handlePost($data = null)
     {
-        $options = [];
-
-        switch (strtoupper($method)) {
-            case 'POST':
-                if(is_file($data)) {
-                    $options = [
-                        'base_uri' => 'https://upload.allegro.pl',
-                        'headers' => [
-                            'content-type' => getimagesize($data)['mime'],
-                        ],
-                        'body' => fopen($data, 'r'),
-                    ];
-                } else {
-                    return parent::request($method, $uri, $data);
-                }
-            default:
-                return parent::request($method, $uri, $data);
+        if (is_file($data)) {
+            return [
+                'base_uri' => 'https://upload.allegro.pl',
+                'headers' => [
+                    'content-type' => getimagesize($data)['mime']
+                ],
+                'body' => fopen($data, 'r'),
+            ];
         }
 
-        $options = array_merge_recursive($this->withOptions(), $options, $this->options);
-
-        $callback = function () use ($method, $uri, $options) {
-            $client = new Client($options);
-            return $client->request($method, $uri);
-        };
-
-        return $this->responseHandler($callback);
+        return parent::handlePost($data);
     }
 
-
-    protected function responseHandler(callable $callback)
+    protected function handleResponse(callable $callback)
     {
         $retries = 0;
 
