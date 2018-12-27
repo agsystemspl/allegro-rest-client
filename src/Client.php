@@ -92,9 +92,9 @@ class Client extends \AGSystems\REST\AbstractClient
             'http_errors' => false,
             'base_uri' => 'https://api.allegro.pl',
             'headers' => [
-                'accept' => 'application/vnd.allegro.public.v1+json',
-                'content-type' => 'application/vnd.allegro.public.v1+json',
-                'authorization' => 'Bearer ' . $this->accessToken->getToken(),
+                'Accept' => 'application/vnd.allegro.public.v1+json',
+                'Content-Type' => 'application/vnd.allegro.public.v1+json',
+                'Authorization' => 'Bearer ' . $this->accessToken->getToken(),
             ]
         ];
     }
@@ -105,7 +105,7 @@ class Client extends \AGSystems\REST\AbstractClient
             return [
                 'base_uri' => 'https://upload.allegro.pl',
                 'headers' => [
-                    'content-type' => mime_content_type($data)
+                    'Content-Type' => mime_content_type($data)
                 ],
                 'body' => fopen($data, 'r'),
             ];
