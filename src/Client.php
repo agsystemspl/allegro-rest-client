@@ -11,6 +11,8 @@ use GuzzleHttp\Psr7\Response;
  * @package AGSystems\Allegro\REST
  *
  * @method Client offers(int $offerId)
+ * @method Client offer_variants(string $setId)
+ * @method Client change_price_commands(string $commandId)
  * @method Client offer_publication_commands(string $commandId)
  * @method Client offer_modification_commands(string $commandId)
  * @method Client offer_price_change_commands(string $commandId)
@@ -19,6 +21,9 @@ use GuzzleHttp\Psr7\Response;
  * @method Client shipping_rates(string $id)
  * @method Client offer_contacts(string $id)
  * @method Client promotions(string $promotionId)
+ * @method Client promotion_campaign_applications(string $applicationId)
+ * @method Client users(string $userId)
+ * @method Client points_of_service(string $id)
  *
  * @property Client sale
  * @property Client offers
