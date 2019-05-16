@@ -20,6 +20,7 @@ use GuzzleHttp\Psr7\Response;
  * @method Client categories(string $categoryId)
  * @method Client shipping_rates(string $id)
  * @method Client offer_contacts(string $id)
+ * @method Client offer_attachments(string attachmentId)
  * @method Client promotions(string $promotionId)
  * @method Client promotion_campaign_applications(string $applicationId)
  * @method Client users(string $userId)
@@ -33,6 +34,7 @@ use GuzzleHttp\Psr7\Response;
  * @property Client shipping_rates
  * @property Client delivery_methods
  * @property Client offer_contacts
+ * @property Client offer_attachments
  * @property Client users
  * @property Client points_of_service
  * @property Client after_sales_service_conditions
@@ -46,6 +48,9 @@ use GuzzleHttp\Psr7\Response;
  * @property Client promotions
  * @property Client listings
  * @property Client events
+ * @property Client order
+ * @property Client line_item_id_mappings
+ * @property Client images
  *
  * @method mixed get(array $parameters = [], array $requestOptions = [])
  * @method mixed post(array $parameters = [], array $requestOptions = [])
@@ -106,7 +111,7 @@ class Client extends \AGSystems\REST\AbstractClient
 
     protected function handlePost($data = null)
     {
-        if (!is_array($data) && is_file($data)) {
+        if (is_string($data) && is_file($data)) {
             return [
                 'base_uri' => 'https://upload.allegro.pl',
                 'headers' => [
