@@ -4,6 +4,7 @@ namespace AGSystems\Allegro\REST;
 
 use AGSystems\OAuth2\Client\Provider\Allegro;
 use AGSystems\Allegro\REST\Account\Token\AccessTokenInterface;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -20,7 +21,7 @@ use GuzzleHttp\Psr7\Response;
  * @method Client categories(string $categoryId)
  * @method Client shipping_rates(string $id)
  * @method Client offer_contacts(string $id)
- * @method Client offer_attachments(string attachmentId)
+ * @method Client offer_attachments(string $attachmentId)
  * @method Client promotions(string $promotionId)
  * @method Client promotion_campaign_applications(string $applicationId)
  * @method Client users(string $userId)
@@ -137,16 +138,29 @@ class Client extends \AGSystems\REST\AbstractClient
              */
             $response = call_user_func($callback);
 
+
+            if ($response->getStatusCode() == 408) {
+                sleep(1);
+                $retries++;
+                continue;
+            }
+
             if (strpos($response->getHeaderLine('content-type'), 'text/plain') !== false) {
                 return (object)[
                     'errors' => [(object)['code' => 'ERROR', 'message' => $response->getBody()->getContents()]]
                 ];
             } else {
-                $result = \GuzzleHttp\json_decode($response->getBody()->getContents());
-                if (isset($result->error))
-                    return (object)[
-                        'errors' => [(object)['code' => 'ERROR', 'message' => $result->error_description]]
-                    ];
+                try {
+                    $result = \GuzzleHttp\json_decode($response->getBody()->getContents());
+                    if (isset($result->error))
+                        return (object)[
+                            'errors' => [(object)['code' => 'ERROR', 'message' => $result->error_description]]
+                        ];
+                } catch (\Exception $e) {
+                    sleep(1);
+                    $retries++;
+                    continue;
+                }
             }
 
             if ($response->getStatusCode() != 500)
