@@ -110,6 +110,16 @@ class Client extends \AGSystems\REST\AbstractClient
         ];
     }
 
+    protected function handleGet($data = null)
+    {
+        if (is_array($data))
+            return [
+                'query' => $this->build_query($data)
+            ];
+
+        return parent::handleGet($data);
+    }
+
     protected function handlePost($data = null)
     {
         if (is_string($data) && is_file($data)) {
@@ -147,7 +157,7 @@ class Client extends \AGSystems\REST\AbstractClient
 
             if (strpos($response->getHeaderLine('content-type'), 'text/plain') !== false) {
                 return (object)[
-                    'errors' => [(object)['code' => 'ERROR', 'message' => $response->getBody()->getContents()]]
+                    'errors' => [(object)['code' => 'ERROR ' . $response->getStatusCode(), 'message' => $response->getBody()->getContents()]]
                 ];
             } else {
                 try {
@@ -183,5 +193,17 @@ class Client extends \AGSystems\REST\AbstractClient
             mt_rand(0, 0x3fff) | 0x8000,
             mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
         );
+    }
+
+    protected function build_query($query_data)
+    {
+        $query = [];
+        foreach ($query_data as $name => $value) {
+            $value = (array)$value;
+            array_walk_recursive($value, function ($value) use (&$query, $name) {
+                $query[] = urlencode($name) . '=' . urlencode($value);
+            });
+        }
+        return implode("&", $query);
     }
 }
