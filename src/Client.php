@@ -155,6 +155,12 @@ class Client extends \AGSystems\REST\AbstractClient
                 continue;
             }
 
+            if ($response->getStatusCode() == 429) {
+                sleep(10);
+                $retries++;
+                continue;
+            }
+
             if (strpos($response->getHeaderLine('content-type'), 'text/plain') !== false) {
                 return (object)[
                     'errors' => [(object)['code' => 'ERROR ' . $response->getStatusCode(), 'message' => $response->getBody()->getContents()]]
