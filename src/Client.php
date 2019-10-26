@@ -157,6 +157,7 @@ class Client extends \AGSystems\REST\AbstractClient
     protected function handleResponse(callable $callback)
     {
         $retries = 0;
+        $result = null;
 
         do {
             /**
