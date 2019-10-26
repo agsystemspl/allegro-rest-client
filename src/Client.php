@@ -72,6 +72,11 @@ class Client extends \AGSystems\REST\AbstractClient
      */
     protected $provider;
 
+    /**
+     * @var Callable
+     */
+    protected $responseCallback;
+
     public function __construct(
         AccessTokenInterface $accessToken,
         Allegro $provider,
@@ -138,6 +143,17 @@ class Client extends \AGSystems\REST\AbstractClient
         return parent::handlePost($data);
     }
 
+    public function setResponseCallback(callable $callback)
+    {
+        $this->responseCallback = $callback;
+    }
+
+    protected function responseCallback(Response $response)
+    {
+        if (is_callable($this->responseCallback))
+            call_user_func($this->responseCallback, $response);
+    }
+
     protected function handleResponse(callable $callback)
     {
         $retries = 0;
@@ -148,6 +164,7 @@ class Client extends \AGSystems\REST\AbstractClient
              */
             $response = call_user_func($callback);
 
+            $this->responseCallback($response);
 
             if ($response->getStatusCode() == 408) {
                 sleep(1);
