@@ -89,6 +89,11 @@ class Client extends \AGSystems\REST\AbstractClient
         parent::__construct($options);
     }
 
+    public function accessToken()
+    {
+        return $this->accessToken;
+    }
+    
     protected function handlePath($path)
     {
         return str_replace('_', '-', $path);
