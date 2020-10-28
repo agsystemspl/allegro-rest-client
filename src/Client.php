@@ -49,6 +49,7 @@ use GuzzleHttp\Psr7\Response;
  * @property Client promotions
  * @property Client listings
  * @property Client events
+ * @property Client offer_events
  * @property Client order
  * @property Client line_item_id_mappings
  * @property Client images
