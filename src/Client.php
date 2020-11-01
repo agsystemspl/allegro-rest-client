@@ -26,6 +26,7 @@ use GuzzleHttp\Psr7\Response;
  * @method Client promotion_campaign_applications(string $applicationId)
  * @method Client users(string $userId)
  * @method Client points_of_service(string $id)
+ * @method Client products(string $productId)
  *
  * @property Client sale
  * @property Client offers
@@ -53,6 +54,7 @@ use GuzzleHttp\Psr7\Response;
  * @property Client order
  * @property Client line_item_id_mappings
  * @property Client images
+ * @property Client products
  *
  * @method mixed get(array $parameters = [], array $requestOptions = [])
  * @method mixed post(array $parameters = [], array $requestOptions = [])
