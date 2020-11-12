@@ -55,6 +55,8 @@ use GuzzleHttp\Psr7\Response;
  * @property Client line_item_id_mappings
  * @property Client images
  * @property Client products
+ * @property Client offer_additional_services
+ * @property Client definitions
  *
  * @method mixed get(array $parameters = [], array $requestOptions = [])
  * @method mixed post(array $parameters = [], array $requestOptions = [])
